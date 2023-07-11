@@ -107,29 +107,71 @@
 
 // ************************ map ****************************************
 
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// const eurToUsd = 1.1;
+
+// const movementsUSD = movements.map(mov => mov * eurToUsd);
+
+// console.log(movements);
+// console.log(movementsUSD);
+
+// // the same with for of loop
+// const movementsUSDfor = [];
+// for (const mov of movements) movementsUSDfor.push(mov * eurToUsd);
+// console.log(movementsUSDfor);
+
+// const movementsDescriptions = movements.map((mov, i) => {
+//   return `Movement ${i + 1}: You ${
+//     mov > 0 ? 'deposited' : 'withdrew'
+//   } ${Math.abs(mov)}`;
+
+//   // if (mov > 0) {
+//   //   return `Movement ${i + 1}: You deposited ${mov}`;
+//   // } else {
+//   //   return `Movement ${i + 1}: You withdrew ${Math.abs(mov)}`;
+//   // }
+// });
+// console.log(movementsDescriptions);
+
+// **************************** filter *********************************
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
-const eurToUsd = 1.1;
+const deposits = movements.filter(mov => mov > 0);
+console.log(deposits);
 
-const movementsUSD = movements.map(mov => mov * eurToUsd);
+// The same but with for of loop
+const depositsFor = [];
+for (const mov of movements) if (mov > 0) depositsFor.push(mov);
+console.log(depositsFor);
 
-console.log(movements);
-console.log(movementsUSD);
+const withdrawals = movements.filter(mov => mov < 0);
+console.log(withdrawals);
+
+// ****************************** reduce *******************************
+
+const balance = movements.reduce((acc, current) => acc + current, 0);
+console.log(balance);
 
 // the same with for of loop
-const movementsUSDfor = [];
-for (const mov of movements) movementsUSDfor.push(mov * eurToUsd);
-console.log(movementsUSDfor);
+let balanceFor = 0;
+for (const mov of movements) balanceFor += mov;
+console.log(balanceFor);
 
-const movementsDescriptions = movements.map((mov, i) => {
-  return `Movement ${i + 1}: You ${
-    mov > 0 ? 'deposited' : 'withdrew'
-  } ${Math.abs(mov)}`;
+// Maximum value
+const max = movements.reduce((acc, mov) => {
+  if (acc > mov) {
+    return acc;
+  } else {
+    return mov;
+  }
+}, movements[0]);
 
-  // if (mov > 0) {
-  //   return `Movement ${i + 1}: You deposited ${mov}`;
-  // } else {
-  //   return `Movement ${i + 1}: You withdrew ${Math.abs(mov)}`;
-  // }
-});
-console.log(movementsDescriptions);
+console.log(max);
+
+const max2 = movements.reduce(
+  (acc, mov) => (acc > mov ? acc : mov),
+  movements[0]
+);
+
+console.log(max2);
