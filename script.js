@@ -224,3 +224,46 @@ console.log(accounts);
 
 const account = accounts.find(account => account.owner === 'Jessica Davis');
 console.log(account);
+
+// ******************* some, every ******************************
+// Equality
+console.log(movements.includes(-130));
+
+// SOME: condition
+console.log(movements.some(mov => mov === -130));
+const anyDeposits = movements.some(mov => mov > 0);
+console.log(anyDeposits);
+
+// EVERY
+console.log(movements.every(mov => mov > 0)); // false
+console.log(account4.movements.every(mov => mov > 0)); // true
+
+// Separate callback
+const deposit = mov => mov > 0;
+console.log(movements.some(deposit));
+console.log(movements.every(deposit));
+console.log(movements.filter(deposit));
+
+// ********************* flat, flatMap *************************
+// flat
+const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+console.log(arr.flat()); // [1,2,3,4,5,6,7,8]
+
+const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+console.log(arrDeep.flat(2)); // [1,2,3,4,5,6,7,8]
+
+const accountMovements = accounts.map(acc => acc.movements);
+console.log(accountMovements);
+const allMovements = accountMovements.flat();
+console.log(allMovements);
+const overallBalance = allMovements.reduce((acc, cur) => acc + cur, 0);
+console.log(overallBalance);
+
+// const overallBalance = accounts.map(acc =>
+//   acc.movements.flat().reduce((acc, cur) => acc + cur, 0)
+// );
+
+// flatMap - goes only one level deep, if need more that using flat
+const overallBalance2 = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((acc, mov) => acc + mov, 0);
